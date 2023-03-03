@@ -1,3 +1,22 @@
+const { Router } = require('express');
+const adminController = require('../controllers/adminController');
+// const {requireManager} = require('../middleware/adminMiddleware');
+
+const router = Router();
+
+router.get('/admins', adminController.getAllEmployees);
+router.get('/admins/get/:id', adminController.getEmployeeById);
+router.post('/admins/create', adminController.addEmployee);
+router.put('/admins/update/:id', adminController.updateEmployee);
+router.delete('/admins/delete/:id', adminController.deleteEmployee);
+
+module.exports = router; 
+
+
+
+
+
+
 // const { Router } = require('express');
 // const adminController = require('../controllers/adminController');
 // const {requireAuth} = require('../middleware/userMiddleware');

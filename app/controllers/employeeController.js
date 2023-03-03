@@ -1,4 +1,5 @@
 const Employee = require("../models/Employee");
+// const mongoose = require('mongoose');
 // const Rank = require("../models/Rank");
 // const jwt = require('jsonwebtoken');
 
@@ -36,17 +37,21 @@ module.exports.getEmployeeById= async (req,res)=>{
 
 //adding Employee
 
-module.exports.addEmployee=async(req,res,next)=>{
+module.exports.addEmployee = async (req, res) =>{
     try{
-        req.body.owner=mongoose.Types.ObjectId(req.decodedToken.id);
-        await Employee.create(req.body);
-        console.log("LOGS: Adding Employee");
-        res.status(200).send("SUCCESS: Creation of Employee succeeded");
+        //creat a new user
+        const employee = await Employee.create(req.body);
+        res.status(200).json(employee);
+
     }catch(err){
-        console.log("creation of Employee failed "+err.message);
-        res.status(500).send("Error");
+
+        console.log("Creation failed");
+        res.status(500).json({message: err.message});
     }
+
 }
+
+
 // update employee
 
 
@@ -54,7 +59,7 @@ module.exports.updateEmployee = async (req, res) =>{
     _id = req.params.id;
     try{
         const employee=await Employee.findOneAndUpdate({_id}, req.body, {new: true});
-        if(user){    
+        if(employee){    
             res.status(200).json(employee);
 
         }else{
@@ -70,10 +75,10 @@ module.exports.updateEmployee = async (req, res) =>{
 //delete employee
 module.exports.deleteEmployee=async(req,res)=>{
     try{
-        const employee=await Employee.findById(req.params.id_);
+        const employee=await Employee.findById(req.params.id);
         if(employee){
-            await Employee.deleteOne({_id:req.params.id_});
-            console.log(`LOGS: suppression succeded of Employee with id= ${req.params.id_}`);
+            await Employee.deleteOne({_id:req.params.id});
+            console.log(`LOGS: suppression succeded of Employee with id= ${req.params.id}`);
             res.status(200).send("SUCCESS: suppression succeded of Employee");
         }else{
             res.status(401).send("Employee not found");
