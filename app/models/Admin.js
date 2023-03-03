@@ -47,6 +47,9 @@ const adminSchema = new mongoose.Schema({
   service: {
     type: String,
   },
+  rank: {
+    type: Number,
+  }
 //   rank: {
 //     type: mongoose.Schema.Types.ObjectId,
 //     ref: 'Rank'

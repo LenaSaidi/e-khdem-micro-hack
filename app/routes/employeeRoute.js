@@ -4,10 +4,10 @@ const employeeController = require('../controllers/employeeController');
 
 const router = Router();
 
-router.get('/employees', employeeController.getAllEmployees);
-router.get('/employees/get/:id', employeeController.getEmployeeById);
-router.post('/employees/create', employeeController.addEmployee);
-router.put('/employees/update/:id', employeeController.updateEmployee);
-router.delete('/employees/delete/:id', employeeController.deleteEmployee);
+router.get('/employees',requireAuth, employeeController.getAllEmployees);
+router.get('/employees/get/:id',requireAuth, employeeController.getEmployeeById);
+router.post('/employees/create',requireAuth, employeeController.addEmployee);
+router.put('/employees/update/:id',requireAuth, employeeController.updateEmployee);
+router.delete('/employees/delete/:id',requireAuth, employeeController.deleteEmployee);
 
-module.exports = router;
+module.exports = router; 

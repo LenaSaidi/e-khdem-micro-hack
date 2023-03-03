@@ -1,17 +1,19 @@
-// const Rank = require('../models/Rank');
+const Employee = require('../models/Admin');
+const { Router } = require("express");
+const router = Router();
 
-// module.exports.getTopTen = async (req, res) => {
-//     try {
-//         //get ranks sorted descendantly by "total points" (then by "general points") with the names of their respective owners
-//         const ranks = await Rank.find({}, {history: 0 })
-//             .sort({totalAddedPoints: -1, generalPoints: -1})
-//             .limit(10)
-//             .populate('owner', 'firstName lastName');
-        
-//         res.status(200).json(ranks);
+//get ranks sorted descendantly by "total points" with the names of their respective owners
+    
+router.get('/ranking' ,(req, res) => {
+    Employee.find().sort({createdAt: -1})
+    .then((result) => {
+        result.status(200).send(result);
+    })
+    .catch((err) => {
+        res.status(400).send({
+            err: err.message
+        })
+    })
+})
 
-//     } catch (error) {
-//         console.log("Getting Top Ten failed");
-//         res.status(500).json({message: error.message});
-//     }
-// };
+module.exports = router;

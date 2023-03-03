@@ -1,7 +1,7 @@
 const Admin = require("../models/Admin");
 // const mongoose = require('mongoose');
-// const Rank = require("../models/Rank");
-// const jwt = require('jsonwebtoken');
+const Admin = require("../models/Admin");
+const jwt = require('jsonwebtoken');
 
 
 //get all users from 
@@ -84,4 +84,40 @@ module.exports.deleteAdmin=async(req,res)=>{
         console.log("suppression of Admin failed\n"+err);
         res.status(500).send("Error");
     }
+}
+
+module.exports.login_get = async (req, res) => {
+    res.status(200).send("this is the login page");
+}
+
+
+module.exports.login_post = async (req, res) => {
+    const { email, password } = req.body;
+    const maxAge = 1000 * 60 * 60 * 24;
+
+    try {
+        const user = await Admin.login(email, password);
+
+        if(user){
+            const token = jwt.sign({ id: user._id, role: user.role }, "EKHDEEEM", {expiresIn: maxAge});
+           
+            res.cookie('jwt', token, { httpOnly: true, maxAge});
+            res.status(200).json({ id: user._id });
+
+        }else{
+            res.status(400).json({message: 'error'});
+        }
+    } 
+    catch (err) {
+        // const errors = handleErrors(err);
+        // res.status(400).json({ errors });
+        res.status(400).json({message: err.message});
+    }
+  
+}
+
+
+module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/');
 }
