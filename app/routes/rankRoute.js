@@ -1,8 +1,8 @@
-const { Router } = require("express");
-const rankController = require('../controllers/rankController');
+// const { Router } = require("express");
+// const rankController = require('../controllers/rankController');
 
-const router = Router();
+// const router = Router();
 
-router.get('/ranks/top-ten' , rankController.getTopTen);
+// router.get('/ranks/top-ten' , rankController.getTopTen);
 
-module.exports = router;
+// module.exports = router;

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { isEmail } = require('validator');
-const bcrypt = require("bcrypt");
+// const { isEmail } = require('validator');
+// const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -11,84 +11,40 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  },
   phoneNumber: {
     type: Number,
+    // required: true,
     default: null,
   },
-  yearOfStudy: {
-    type: Number,
-    required: true,
+  dateOFbirth: {
+    type: Date,
+    // required: true,
+  },
+  adress: {
+    type: String,
+    // required: true,
   },
   country: {
     type: String,
-    required: true,
+    // required: true,
     default: 'unspecified',
   },
   email: {
     type: String,
-    required: [true, 'No email address provided'],
+    // required:true,
     unique: true,
-    //lowercase: true,
-    validate: [isEmail, 'Invalid email address']
   },
-  password: {
+  position: {
     type: String,
-    required: [true, 'No password provided'],
-    //minlength: 6,
+    // required: true,
   },
-  isAdmin: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  isBanned: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  isActive: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
-  role: {
+  service: {
     type: String,
-    enum: ["lead", "co-lead", "manager", "member", "alumni"],
-    default: "member",
   },
-  status: {
-    type: String,
-    enum: ["pending", "confirmed", "banned"],
-    default: "pending",
-  },
-  department: {
-    type: String,
-    enum: ["none","development", "design", "multimedia", "communication", "marketing"],
-    default: "none",
-  },
-  lastContributionDate: {
-    type: Date
-  },
-  contributions: [{
-    activityID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Activity"
-    },
-    role: {
-      type: String,
-      enum: ["main-manager", "team-leader", "organizer"],
-      default: "organizer",
-    }
-  }],
-  rank: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Rank'
-  },
-  notifications: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Notification'
-  }]
+  // rank: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Rank'
+  // }
 }, {timestamps: true});
 
 // // function to hash the password before saving it to the database
