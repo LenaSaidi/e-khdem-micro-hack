@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const app = express();
 
-const employeeRoute = require('./app/routes/employeeRoutes');
+const employeeRoute = require('./app/routes/employeeRoute');
 
 const dbURI = 'mongodb+mongodb+srv://saidilena:lena123@e-khdem.dsjn9yi.mongodb.net/?retryWrites=true&w=majority://admin:admin@cluster0.ltqof.mongodb.net/NodeJS?retryWrites=true&w=majority';
 
