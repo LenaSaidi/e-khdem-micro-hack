@@ -1,25 +1,28 @@
-const { Router } = require('express');
-const adminController = require('../controllers/adminController');
-const {requireAuth} = require('../middleware/adminMiddleware');
-
-
-const router = Router();
-
-router.get('/admins',requireAuth, adminController.getAllEmployees);
-router.get('/admins/get/:id',requireAuth, adminController.getEmployeeById);
-router.post('/admins/create',requireAuth, adminController.addEmployee);
-router.put('/admins/update/:id',requireAuth, adminController.updateEmployee);
-router.delete('/admins/delete/:id',requireAuth, adminController.deleteEmployee);
-
-
-router.get('/user/login', userController.login_get);
-router.post('/user/login', userController.login_post);
-router.get('/user/logout-get', userController.logout_get);
+const express = require('express');
+const {
+    getAdminById,
+    addAdmin,
+    updateAdmin,
+    deleteAdmin,
+    getAllAdmins
 
 
 
-// router.get('/user/testUser', requireAuth, requireAdmin ,(req, res) => {
-//     res.json({message: 'test done'});
-// });
+} = require('../controllers/adminController');
+const {requireAuth} = require('../Middlware/adminMiddleware');
+
+
+const router = express.Router();
+router.get('/all', getAllAdmins);
+
+router.post('/add', addAdmin)
+router.get('/:id', getAdminById)
+router.put('/:id',requireAuth, updateAdmin)
+router.delete('/:id',requireAuth, deleteAdmin);
+
+router.get('/login', userController.login_get);
+router.post('/login', userController.login_post);
+router.get('/logout-get', userController.logout_get);
+
 
 module.exports = router; 

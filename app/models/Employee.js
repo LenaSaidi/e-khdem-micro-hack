@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-// const { isEmail } = require('validator');
-// const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -13,34 +11,49 @@ const userSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: Number,
-    // required: true,
-    // default: null,
+    required: true,
+    default: null,
   },
   dateOFbirth: {
     type: Date,
-    // required: true,
+    required: true,
   },
   adress: {
     type: String,
-    // required: true,
+    required: true,
   },
   country: {
     type: String,
-    // required: true,
-    // default: 'unspecified',
+    required: true,
+    default: 'unspecified',
   },
   email: {
     type: String,
-    // required:true,
+    required:true,
     unique: true,
   },
   position: {
     type: String,
-    // required: true,
+    required: true,
   },
   service: {
     type: String,
   },
+  rank: {
+    type: Number,
+  },
+  abscence: {
+    type: Number,
+  },
+  retards: {
+    type: Number,
+  },
+  skipped: {
+    type: Number,
+  },
+  productivity: {
+    type: Number,
+  }
   // rank: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Rank'

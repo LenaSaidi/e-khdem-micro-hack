@@ -7,9 +7,9 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 const employeeRoute = require('./app/routes/employeeRoute');
-const employeeRoute = require('./app/routes/adminRoute');
-const employeeRoute = require('./app/routes/rankRoute');
-const {checkUser} = require('./app/middleware/adminMiddleware');
+const adminRoute = require('./app/routes/adminRoute');
+const rankRoute = require('./app/routes/rankRoute');
+const {checkUser} = require('./app/Middlware/adminMiddleware');
 // const {requireAuth} = require('./app/middleware/adminMiddleware');
 
 
@@ -35,8 +35,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
 
 
 app.use('/*', checkUser);
-app.use(employeeRoute);
-app.use(adminRoute);
+app.use('/employees',employeeRoute);
+app.use('/admin',adminRoute);
 app.use(rankRoute);
 
 

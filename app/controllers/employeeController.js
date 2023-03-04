@@ -1,7 +1,5 @@
 const Employee = require("../models/Employee");
 // const mongoose = require('mongoose');
-// const Rank = require("../models/Rank");
-// const jwt = require('jsonwebtoken');
 
 
 //get all users from 
@@ -10,7 +8,7 @@ module.exports.getAllEmployees= async (req,res)=>{
     try{
         const allEmployees= await Employee.find();
         console.log('LOGS: Getting all users');
-        res.status(200).send(allEmployees);
+        res.status(200).send(allEmployees); 
     }catch(err){
         console.log("Getting all users failed"+err);
         res.status(500).send("Error");

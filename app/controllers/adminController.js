@@ -1,19 +1,21 @@
 const Admin = require("../models/Admin");
 // const mongoose = require('mongoose');
-const Admin = require("../models/Admin");
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
 //get all users from 
 
 module.exports.getAllAdmins= async (req,res)=>{
+    
     try{
         const allAdmins= await Admin.find();
         console.log('LOGS: Getting all users');
-        res.status(200).send(allAdmins);
+        res.status(200).json(allAdmins);
     }catch(err){
+
         console.log("Getting all users failed"+err);
-        res.status(500).send("Error");
+        res.status(500).json("Error");
     }
 }
 
@@ -30,7 +32,7 @@ module.exports.getAdminById= async (req,res)=>{
         console.log(`LOGS: Getting Admin with id = ${req.params.id}`);
     }catch(err){
         console.log("Getting the Admin with id failed"+err);
-        res.status(500).send("Error");
+        res.status(500).json({error : err.message});
     }
 }
 
@@ -39,8 +41,21 @@ module.exports.getAdminById= async (req,res)=>{
 
 module.exports.addAdmin = async (req, res) =>{
     try{
-        //creat a new user
-        const admin = await Admin.create(req.body);
+        console.log('req.body');
+
+        let {email , password} = req.body;
+   let admin =  await   Admin.findOne({email})
+   if (admin) {
+
+    return res.status(400).json({msg: 'User already exists'})   
+    }
+    let hachedPassword = await bcrypt.hash(password, 10)
+    admin = new Admin({
+        email,
+        hachedPassword,
+        ...req.body
+    }),
+        await admin.save();
         res.status(200).json(admin);
 
     }catch(err){
